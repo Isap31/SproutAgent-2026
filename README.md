@@ -1,9 +1,9 @@
-# BridgeAI
+# BagelAI
 ### The Agent That Bridges Every Other Agent
 
 > AI is everywhere. But almost nobody knows how to actually use it.
 
-BridgeAI is a proactive AI literacy agent delivered as a home screen widget. It lives inside the technology behaviors people already have, meets them where they are, and teaches them to harness AI through doing — not lecturing.
+BagelAI is a proactive AI literacy agent delivered as a home screen widget. It lives inside the technology behaviors people already have, meets them where they are, and teaches them to harness AI through doing — not lecturing.
 
 ---
 
@@ -20,7 +20,7 @@ The gap is not intelligence. It is not access. It is the missing bridge between 
 
 ## The Solution
 
-BridgeAI is a proactive AI guidance agent that:
+BagelAI is a proactive AI guidance agent that:
 
 - Lives on your **home screen widget** — zero friction, always present
 - Identifies what you are trying to accomplish and surfaces the exact AI tool or prompt that solves it
@@ -56,7 +56,7 @@ Tracks skill progression over time and evolves recommendations accordingly. User
 
 ## Target Users
 
-| Segment | Problem BridgeAI Solves |
+| Segment | Problem BagelAI Solves |
 |---|---|
 | College students | AI tools exist — practical instruction does not |
 | Young professionals | Peers are leveraging AI; they are falling behind |
@@ -117,10 +117,10 @@ Tracks skill progression over time and evolves recommendations accordingly. User
 
 ## Ethical Commitments
 
-- BridgeAI does not read user documents, messages, or files
+- BagelAI does not read user documents, messages, or files
 - Skill progression data remains on-device unless the user opts into sync
 - Core guidance features are permanently free
-- BridgeAI amplifies human capability — it does not replace human judgment
+- BagelAI amplifies human capability — it does not replace human judgment
 - Every recommendation includes a transparent explanation of why it was surfaced
 
 ---
