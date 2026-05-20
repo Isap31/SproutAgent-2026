@@ -1,4 +1,4 @@
-# BagelAI
+# SproutAgent
 ### The Agent That ...
 
 
