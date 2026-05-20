@@ -7,7 +7,7 @@
 
 ## The Solution
 
-BagelAI is a proactive AI guidance agent that:
+SproutAgent is a proactive AI guidance agent that:
 
 - 
 - 
