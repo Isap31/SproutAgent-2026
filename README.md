@@ -1,6 +1,6 @@
 # SproutAgent 2026
 
-SproutAgent is an AI-assisted consulting workflow prototype. It uses a fictional Star Wars-inspired consulting firm, **Orbital Horizons Consulting**, to safely simulate real-world consulting problems around operations, risk, transformation, cost estimation, and project timelines.
+SproutAgent is an AI-assisted consulting workflow prototype. It uses a fictional SW's-inspired consulting firm, **Orbital Horizons Consulting**, to safely simulate real-world consulting problems around operations, risk, transformation, cost estimation, and project timelines.
 
 The project is designed as a practice build for learning how AI can support consulting workflows before applying the same thinking to real business environments.
 
