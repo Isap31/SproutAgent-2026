@@ -1,0 +1,22 @@
+{
+  "client_id": "tatooine-water-authority",
+  "client_name": "Tatooine Water Authority",
+  "cfo_persona": "CFO focused on cost control, resource reliability, and operating forecast discipline.",
+  "reporting_month": "2026-04",
+  "package_type": "Monthly Board Package",
+  "financials": {
+    "budget": 10000000,
+    "actuals": 11800000,
+    "forecast": 13000000,
+    "prior_month_actuals": 10900000
+  },
+  "kpis": {
+    "delivery_delay_rate": 0.21,
+    "water_loss_rate": 0.14,
+    "equipment_uptime": 0.82,
+    "emergency_transport_spend": 1800000
+  },
+  "cost_drivers": ["Emergency transport", "Equipment repairs", "Route disruption", "Storage constraints"],
+  "leadership_notes": ["Distribution delays remain above target.", "Repair costs are pressuring the operating forecast.", "Leadership wants a phased cost-control plan."],
+  "risks": ["Forecast overrun risk", "Service reliability risk", "Vendor dependency risk"]
+}
