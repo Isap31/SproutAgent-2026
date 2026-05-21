@@ -28,9 +28,21 @@ def generate_with_gemini(prompt: str) -> str:
         )
 
     model_name = os.getenv("GEMINI_MODEL", "gemini-1.5-flash")
+    timeout_seconds = int(os.getenv("GEMINI_TIMEOUT_SECONDS", "30"))
+
     genai.configure(api_key=api_key)
     model = genai.GenerativeModel(model_name)
-    response = model.generate_content(prompt)
+
+    try:
+        response = model.generate_content(
+            prompt,
+            request_options={"timeout": timeout_seconds},
+        )
+    except Exception as exc:  # noqa: BLE001
+        raise GeminiServiceError(
+            f"Gemini request failed using model '{model_name}' after "
+            f"{timeout_seconds} seconds or less: {exc}"
+        ) from exc
 
     text = getattr(response, "text", None)
     if not text:
