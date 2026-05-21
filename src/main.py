@@ -1,7 +1,7 @@
 import os
 from pathlib import Path
 
-from src.orchestrator import SproutAgentOrchestrator
+from src.agent import SproutAgent, format_run_summary
 
 
 def load_local_env() -> None:
@@ -43,17 +43,14 @@ def main() -> None:
     print("Workflow: Monthly Board Package")
     print(f"AI mode: {'Offline fallback' if offline_mode else 'Gemini live with fallback'}")
     print(f"Configured model: {model_name}")
-    print("Running workflow...\n")
+    print("Running agent...\n")
 
-    orchestrator = SproutAgentOrchestrator()
-    result = orchestrator.run_monthly_board_package()
+    agent = SproutAgent()
+    run_summary = agent.run_monthly_board_package()
 
-    print("Workflow complete.")
-    print(f"Client: {result['client_name']}")
-    print(f"Reporting period: {result['reporting_month']}")
-    print_metric_summary(result["calculated_metrics"])
-    print(f"\nDraft report created: {result['output_path']}")
-    print("Reminder: This output is a draft for human review.")
+    print(format_run_summary(run_summary))
+    print_metric_summary(run_summary["calculated_metrics"])
+    print("\nReminder: This output is a draft for human review.")
 
 
 if __name__ == "__main__":
