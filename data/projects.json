@@ -1,0 +1,29 @@
+[
+  {
+    "project_id": "tw-001",
+    "client_id": "tatooine-water-authority",
+    "project_name": "Moisture Route Modernization",
+    "scope": "Improve routing, storage, and transport reliability for water distribution.",
+    "estimated_cost_credits": 2500000,
+    "estimated_duration_months": 6,
+    "status": "Discovery"
+  },
+  {
+    "project_id": "ct-001",
+    "client_id": "coruscant-transit-bureau",
+    "project_name": "Transit Flow Optimization Program",
+    "scope": "Modernize traffic forecasting, district routing, and emergency rerouting protocols.",
+    "estimated_cost_credits": 8000000,
+    "estimated_duration_months": 12,
+    "status": "Planning"
+  },
+  {
+    "project_id": "nc-001",
+    "client_id": "naboo-civic-operations-council",
+    "project_name": "Civic Services Digital Transformation",
+    "scope": "Digitize service intake, approvals, and cross-department status tracking.",
+    "estimated_cost_credits": 4000000,
+    "estimated_duration_months": 9,
+    "status": "Discovery"
+  }
+]
