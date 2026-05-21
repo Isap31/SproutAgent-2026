@@ -1,4 +1,4 @@
-# SproutAgent Project Tracker Agent
+# SproutAgent Project Tracker
 
 This file defines the internal project-tracking role for SproutAgent. It is meant to help keep the repository organized as the prototype grows.
 
