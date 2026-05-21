@@ -1,0 +1,29 @@
+{
+  "risk_categories": [
+    {
+      "name": "Operational",
+      "description": "Risks that affect delivery speed, service reliability, or daily process execution."
+    },
+    {
+      "name": "Technology",
+      "description": "Risks caused by legacy systems, weak integrations, poor data quality, or system downtime."
+    },
+    {
+      "name": "Financial",
+      "description": "Risks caused by budget overruns, unclear cost ownership, or weak cost controls."
+    },
+    {
+      "name": "Change Management",
+      "description": "Risks caused by resistance to new workflows, unclear ownership, or training gaps."
+    },
+    {
+      "name": "Environmental",
+      "description": "Risks caused by climate, terrain, ecosystem impact, or physical operating conditions."
+    }
+  ],
+  "scoring_scale": {
+    "Low": "Manageable risk with limited expected disruption.",
+    "Medium": "Moderate risk requiring mitigation planning and active monitoring.",
+    "High": "Material risk requiring leadership attention, contingency planning, and phased rollout."
+  }
+}
