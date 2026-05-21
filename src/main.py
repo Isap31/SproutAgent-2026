@@ -2,6 +2,7 @@ import os
 from pathlib import Path
 
 from src.agent import SproutAgent, format_run_summary
+from src.client_registry import format_client_directory
 
 
 def load_local_env() -> None:
@@ -38,11 +39,20 @@ def main() -> None:
 
     offline_mode = os.getenv("SPROUT_OFFLINE_MODE", "false").lower() == "true"
     model_name = os.getenv("GEMINI_MODEL", "gemini-2.0-flash")
+    selected_client_folder = os.getenv("SPROUT_CLIENT_FOLDER")
 
     print("SproutAgent Phase 1: Finance Execution Agent")
     print("Workflow: Monthly Board Package")
     print(f"AI mode: {'Offline fallback' if offline_mode else 'Gemini live with fallback'}")
     print(f"Configured model: {model_name}")
+
+    if selected_client_folder:
+        print(f"Selected client folder: {selected_client_folder}")
+    else:
+        print("No SPROUT_CLIENT_FOLDER selected. Showing available clients:")
+        print(format_client_directory())
+        print("\nFalling back to shared data default for this run.")
+
     print("Running agent...\n")
 
     agent = SproutAgent()
