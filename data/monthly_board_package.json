@@ -1,34 +1,112 @@
-{
-  "client_id": "tatooine-water-authority",
-  "client_name": "Tatooine Water Authority",
-  "reporting_month": "2026-04",
-  "package_type": "Monthly Board Package",
-  "financials": {
-    "budget": 10000000,
-    "actuals": 11800000,
-    "forecast": 13000000,
-    "prior_month_actuals": 10900000
+[
+  {
+    "client_id": "tatooine-water-authority",
+    "client_name": "Tatooine Water Authority",
+    "cfo_persona": "CFO focused on cost control, resource reliability, and operating forecast discipline.",
+    "reporting_month": "2026-04",
+    "package_type": "Monthly Board Package",
+    "financials": {
+      "budget": 10000000,
+      "actuals": 11800000,
+      "forecast": 13000000,
+      "prior_month_actuals": 10900000
+    },
+    "kpis": {
+      "delivery_delay_rate": 0.21,
+      "water_loss_rate": 0.14,
+      "equipment_uptime": 0.82,
+      "emergency_transport_spend": 1800000
+    },
+    "cost_drivers": ["Emergency transport", "Equipment repairs", "Route disruption", "Storage constraints"],
+    "leadership_notes": ["Distribution delays remain above target.", "Repair costs are pressuring the operating forecast.", "Leadership wants a phased cost-control plan."],
+    "risks": ["Forecast overrun risk", "Service reliability risk", "Vendor dependency risk"]
   },
-  "kpis": {
-    "delivery_delay_rate": 0.21,
-    "water_loss_rate": 0.14,
-    "equipment_uptime": 0.82,
-    "emergency_transport_spend": 1800000
+  {
+    "client_id": "coruscant-transit-bureau",
+    "client_name": "Coruscant Transit Bureau",
+    "cfo_persona": "CFO focused on infrastructure budget governance, congestion-related cost pressure, and capital planning discipline.",
+    "reporting_month": "2026-04",
+    "package_type": "Monthly Board Package",
+    "financials": {
+      "budget": 50000000,
+      "actuals": 59000000,
+      "forecast": 65000000,
+      "prior_month_actuals": 54500000
+    },
+    "kpis": {
+      "congestion_incident_rate": 0.33,
+      "route_reliability_score": 0.71,
+      "energy_overrun_rate": 0.16,
+      "emergency_reroute_spend": 6200000
+    },
+    "cost_drivers": ["Energy grid strain", "Emergency rerouting", "Legacy routing systems", "District coordination delays"],
+    "leadership_notes": ["Transit delays are creating pressure on operating costs.", "Energy usage is above plan.", "Leadership wants better visibility into district-level variance."],
+    "risks": ["Capital overrun risk", "Public service reliability risk", "Forecast accuracy risk"]
   },
-  "cost_drivers": [
-    "Emergency transport",
-    "Equipment repairs",
-    "Route disruption",
-    "Storage constraints"
-  ],
-  "leadership_notes": [
-    "Distribution delays remain above target.",
-    "Repair costs are pressuring the operating forecast.",
-    "Leadership wants a phased cost-control plan."
-  ],
-  "risks": [
-    "Forecast overrun risk",
-    "Service reliability risk",
-    "Vendor dependency risk"
-  ]
-}
+  {
+    "client_id": "naboo-civic-operations-council",
+    "client_name": "Naboo Civic Operations Council",
+    "cfo_persona": "CFO focused on public-sector budget discipline, service modernization, and department-level reporting visibility.",
+    "reporting_month": "2026-04",
+    "package_type": "Monthly Board Package",
+    "financials": {
+      "budget": 22000000,
+      "actuals": 23100000,
+      "forecast": 24000000,
+      "prior_month_actuals": 22600000
+    },
+    "kpis": {
+      "service_request_backlog": 0.18,
+      "digital_form_completion_rate": 0.42,
+      "department_handoff_delay_rate": 0.12,
+      "manual_processing_cost": 2100000
+    },
+    "cost_drivers": ["Manual approval workflows", "Duplicated department effort", "Service backlog", "Transformation delays"],
+    "leadership_notes": ["Budget variance is manageable but trend needs monitoring.", "Manual work is slowing service delivery.", "Leadership wants a clearer modernization roadmap."],
+    "risks": ["Change management risk", "Reporting visibility risk", "Transformation delay risk"]
+  },
+  {
+    "client_id": "hoth-logistics-command",
+    "client_name": "Hoth Logistics Command",
+    "cfo_persona": "CFO focused on emergency logistics cost containment, scenario planning, and forecast volatility management.",
+    "reporting_month": "2026-04",
+    "package_type": "Monthly Board Package",
+    "financials": {
+      "budget": 18000000,
+      "actuals": 22500000,
+      "forecast": 25000000,
+      "prior_month_actuals": 20300000
+    },
+    "kpis": {
+      "failed_delivery_rate": 0.29,
+      "equipment_uptime": 0.69,
+      "emergency_supply_spend": 4100000,
+      "weather_delay_rate": 0.37
+    },
+    "cost_drivers": ["Emergency supply runs", "Weather-related equipment loss", "Limited supply windows", "Cold-weather maintenance"],
+    "leadership_notes": ["Forecast volatility remains high.", "Emergency supply spending is above plan.", "Leadership wants contingency planning tied to cost controls."],
+    "risks": ["Cash pressure risk", "Emergency readiness risk", "Forecast volatility risk"]
+  },
+  {
+    "client_id": "endor-eco-development-authority",
+    "client_name": "Endor Eco-Development Authority",
+    "cfo_persona": "CFO focused on balancing sustainability investment, controlled infrastructure spend, and stakeholder reporting.",
+    "reporting_month": "2026-04",
+    "package_type": "Monthly Board Package",
+    "financials": {
+      "budget": 12000000,
+      "actuals": 12600000,
+      "forecast": 13200000,
+      "prior_month_actuals": 12100000
+    },
+    "kpis": {
+      "environmental_review_delay_rate": 0.11,
+      "sustainability_score": 0.78,
+      "community_issue_count": 8,
+      "construction_change_cost": 950000
+    },
+    "cost_drivers": ["Environmental review delays", "Phased construction changes", "Community engagement activities", "Sustainability monitoring"],
+    "leadership_notes": ["Spend is slightly above budget but within manageable range.", "Stakeholder reporting needs to improve.", "Leadership wants cost controls that do not weaken sustainability goals."],
+    "risks": ["Stakeholder confidence risk", "Sustainability reporting risk", "Schedule delay risk"]
+  }
+]
