@@ -4,6 +4,7 @@ from pathlib import Path
 from typing import Any
 
 from src.orchestrator import SproutAgentOrchestrator
+from src.skills.run_logging import save_run_log
 
 
 class SproutAgent:
@@ -80,7 +81,7 @@ class SproutAgent:
 
         completed_at = datetime.now().isoformat(timespec="seconds")
 
-        return {
+        run_summary = {
             "agent_name": "SproutAgent",
             "workflow": "Monthly Board Package",
             "client_name": result.get("client_name"),
@@ -96,12 +97,23 @@ class SproutAgent:
             "steps": self.steps,
         }
 
+        run_log_path = save_run_log(run_summary)
+        self.record_step("Run log saved", "completed", str(run_log_path))
+        run_summary["run_log_path"] = run_log_path
+        run_summary["steps"] = self.steps
+
+        return run_summary
+
 
 def format_run_summary(run_summary: dict[str, Any]) -> str:
     """Format an agent run summary for terminal output."""
     output_path = run_summary.get("output_path")
     if isinstance(output_path, Path):
         output_path = str(output_path)
+
+    run_log_path = run_summary.get("run_log_path")
+    if isinstance(run_log_path, Path):
+        run_log_path = str(run_log_path)
 
     lines = [
         "SproutAgent Run Summary",
@@ -113,6 +125,7 @@ def format_run_summary(run_summary: dict[str, Any]) -> str:
         f"Reporting period: {run_summary.get('reporting_month')}",
         f"AI mode: {run_summary.get('ai_mode')}",
         f"Output: {output_path}",
+        f"Run log: {run_log_path}",
         f"Human review required: {run_summary.get('human_review_required')}",
         "",
         "Execution Steps:",
