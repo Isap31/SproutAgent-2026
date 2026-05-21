@@ -1,7 +1,7 @@
 import os
 
 try:
-    import google.generativeai as genai
+    from google import genai
 except ImportError:  # pragma: no cover
     genai = None
 
@@ -18,7 +18,7 @@ def generate_with_gemini(prompt: str) -> str:
     """
     if genai is None:
         raise GeminiServiceError(
-            "google-generativeai is not installed. Install project dependencies first."
+            "google-genai is not installed. Install project dependencies first."
         )
 
     api_key = os.getenv("GEMINI_API_KEY")
@@ -28,20 +28,16 @@ def generate_with_gemini(prompt: str) -> str:
         )
 
     model_name = os.getenv("GEMINI_MODEL", "gemini-1.5-flash")
-    timeout_seconds = int(os.getenv("GEMINI_TIMEOUT_SECONDS", "30"))
-
-    genai.configure(api_key=api_key)
-    model = genai.GenerativeModel(model_name)
 
     try:
-        response = model.generate_content(
-            prompt,
-            request_options={"timeout": timeout_seconds},
+        client = genai.Client(api_key=api_key)
+        response = client.models.generate_content(
+            model=model_name,
+            contents=prompt,
         )
-    except Exception as exc:  # noqa: BLE001
+    except Exception as exc:
         raise GeminiServiceError(
-            f"Gemini request failed using model '{model_name}' after "
-            f"{timeout_seconds} seconds or less: {exc}"
+            f"Gemini request failed using model '{model_name}': {exc}"
         ) from exc
 
     text = getattr(response, "text", None)
