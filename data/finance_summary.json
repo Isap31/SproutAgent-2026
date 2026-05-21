@@ -1,0 +1,13 @@
+[
+  {
+    "client_id": "tatooine-water-authority",
+    "annual_budget": 10000000,
+    "actual_spend": 11800000,
+    "forecasted_spend": 13000000,
+    "variance_percent": 18,
+    "main_cost_driver": "Emergency transport and equipment repairs",
+    "target_savings_percent": 12,
+    "funding_pressure": "Medium",
+    "forecast_confidence": "Medium"
+  }
+]
