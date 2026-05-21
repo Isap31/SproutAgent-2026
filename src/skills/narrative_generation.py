@@ -1,4 +1,5 @@
 import json
+import os
 from typing import Any
 
 from src.gemini_service import generate_with_gemini
@@ -108,16 +109,43 @@ The CFO should decide whether to approve a targeted cost-control review focused 
 
 
 def generate_monthly_board_narrative(
+
     package_data: dict[str, Any],
+
     calculated_metrics: dict[str, Any],
+
 ) -> str:
+
     """Generate CFO-ready narrative using Gemini, with deterministic fallback."""
-    prompt = build_monthly_board_prompt(package_data, calculated_metrics)
-    try:
-        return generate_with_gemini(prompt)
-    except Exception as exc:  # noqa: BLE001
+
+    offline_mode = os.getenv("SPROUT_OFFLINE_MODE", "false").lower() == "true"
+
+    if offline_mode:
+
         return build_fallback_monthly_board_narrative(
+
             package_data=package_data,
+
             calculated_metrics=calculated_metrics,
+
+            error_message="Local offline mode enabled. Gemini was bypassed for this test run.",
+
+        )
+
+    prompt = build_monthly_board_prompt(package_data, calculated_metrics)
+
+    try:
+
+        return generate_with_gemini(prompt)
+
+    except Exception as exc:
+
+        return build_fallback_monthly_board_narrative(
+
+            package_data=package_data,
+
+            calculated_metrics=calculated_metrics,
+
             error_message=str(exc),
+
         )
