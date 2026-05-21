@@ -1,0 +1,72 @@
+[
+  {
+    "id": "tatooine-water-authority",
+    "client_name": "Tatooine Water Authority",
+    "planet": "Tatooine",
+    "industry": "Resource Operations",
+    "main_problem": "Moisture farming and water distribution delays are increasing transport loss and slowing service reliability.",
+    "risk_level": "Medium",
+    "budget_credits": 2500000,
+    "timeline_goal_months": 6,
+    "operational_priority": "Supply chain modernization",
+    "transformation_goal": "Modernize water distribution and reduce delivery loss.",
+    "key_risks": ["Sandstorm disruptions", "Outdated transport routes", "Equipment breakdowns", "Vendor dependency", "Limited water storage capacity"],
+    "success_metrics": ["Reduce delivery delays by 20%", "Reduce water loss by 15%", "Improve route reliability score by 25%"]
+  },
+  {
+    "id": "coruscant-transit-bureau",
+    "client_name": "Coruscant Transit Bureau",
+    "planet": "Coruscant",
+    "industry": "Urban Infrastructure",
+    "main_problem": "Severe city-level traffic congestion is causing delays, energy strain, and coordination failures.",
+    "risk_level": "High",
+    "budget_credits": 8000000,
+    "timeline_goal_months": 12,
+    "operational_priority": "Operational efficiency",
+    "transformation_goal": "Improve transit coordination and reduce systemwide delays.",
+    "key_risks": ["Overcrowded transit lanes", "Legacy routing systems", "Energy grid overload", "Public dissatisfaction", "Coordination failures between districts"],
+    "success_metrics": ["Reduce congestion incidents by 18%", "Improve emergency rerouting time by 30%", "Increase route prediction accuracy by 25%"]
+  },
+  {
+    "id": "naboo-civic-operations-council",
+    "client_name": "Naboo Civic Operations Council",
+    "planet": "Naboo",
+    "industry": "Public Sector Operations",
+    "main_problem": "Civic departments rely on slow manual processes and disconnected service records.",
+    "risk_level": "Medium",
+    "budget_credits": 4000000,
+    "timeline_goal_months": 9,
+    "operational_priority": "Digital transformation",
+    "transformation_goal": "Digitize civic services and improve citizen response times.",
+    "key_risks": ["Slow approval processes", "Data silos", "Resistance to change", "Environmental compliance concerns", "Budget approval delays"],
+    "success_metrics": ["Reduce citizen request turnaround by 35%", "Digitize 60% of service forms", "Improve department handoff completion rates"]
+  },
+  {
+    "id": "hoth-logistics-command",
+    "client_name": "Hoth Logistics Command",
+    "planet": "Hoth",
+    "industry": "Remote Logistics",
+    "main_problem": "Extreme weather disrupts supply routes, equipment readiness, and emergency response timing.",
+    "risk_level": "High",
+    "budget_credits": 5500000,
+    "timeline_goal_months": 8,
+    "operational_priority": "Risk and resilience",
+    "transformation_goal": "Improve cold-weather logistics and emergency readiness.",
+    "key_risks": ["Severe temperature disruptions", "Equipment freezing", "Limited supply windows", "Base isolation", "Emergency evacuation delays"],
+    "success_metrics": ["Reduce failed deliveries by 25%", "Improve emergency readiness score by 30%", "Increase equipment uptime by 20%"]
+  },
+  {
+    "id": "endor-eco-development-authority",
+    "client_name": "Endor Eco-Development Authority",
+    "planet": "Endor",
+    "industry": "Environmental Operations",
+    "main_problem": "Infrastructure growth is not aligned with forest conservation and local community impact.",
+    "risk_level": "Low",
+    "budget_credits": 3000000,
+    "timeline_goal_months": 5,
+    "operational_priority": "Sustainability and monitoring",
+    "transformation_goal": "Support sustainable development without damaging local ecosystems.",
+    "key_risks": ["Environmental damage", "Local community resistance", "Construction delays", "Poor land-use planning", "Resource misallocation"],
+    "success_metrics": ["Create sustainability scorecard", "Reduce project disruption events by 15%", "Improve environmental review completion time by 20%"]
+  }
+]
