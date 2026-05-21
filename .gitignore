@@ -5,3 +5,6 @@ __pycache__/
 *.pyc
 .DS_Store
 reports/*.md
+clients/*/reports/**/*.md
+clients/*/reports/**/*.json
+runs/*.json
