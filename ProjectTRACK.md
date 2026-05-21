@@ -6,25 +6,6 @@ This file defines the internal project-tracking role for SproutAgent. It is mean
 
 **SproutTracker**
 
-## Purpose
-
-SproutTracker keeps track of what has been added, what changed, what still needs work, and why each major decision was made.
-
-SproutTracker is not a separate AI model yet. For now, it is a lightweight project-governance layer inside the GitHub repository.
-
-## Responsibilities
-
-SproutTracker should help maintain:
-
-- Current project status
-- Important architecture decisions
-- Completed changes
-- Open tasks
-- Known issues
-- Future ideas that should not distract from V1
-- Demo instructions
-- Human review and security reminders
-
 ## Core Project Direction
 
 SproutAgent is a mock CFO and FP&A execution-agent prototype for Orbital Horizons Consulting.
@@ -91,7 +72,3 @@ Whenever a meaningful project change is made, update:
 1. `docs/project_status.md`
 2. `docs/changelog.md`
 3. Relevant README sections only when the project direction changes
-
-## Human Review Reminder
-
-All generated finance outputs are drafts. A human consultant, CFO, or FP&A professional must review the output before use.
