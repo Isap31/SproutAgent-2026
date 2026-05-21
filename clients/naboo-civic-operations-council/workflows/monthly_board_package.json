@@ -1,0 +1,22 @@
+{
+  "client_id": "naboo-civic-operations-council",
+  "client_name": "Naboo Civic Operations Council",
+  "cfo_persona": "CFO focused on public-sector budget discipline, service modernization, and department-level reporting visibility.",
+  "reporting_month": "2026-04",
+  "package_type": "Monthly Board Package",
+  "financials": {
+    "budget": 22000000,
+    "actuals": 23100000,
+    "forecast": 24000000,
+    "prior_month_actuals": 22600000
+  },
+  "kpis": {
+    "service_request_backlog": 0.18,
+    "digital_form_completion_rate": 0.42,
+    "department_handoff_delay_rate": 0.12,
+    "manual_processing_cost": 2100000
+  },
+  "cost_drivers": ["Manual approval workflows", "Duplicated department effort", "Service backlog", "Transformation delays"],
+  "leadership_notes": ["Budget variance is manageable but trend needs monitoring.", "Manual work is slowing service delivery.", "Leadership wants a clearer modernization roadmap."],
+  "risks": ["Change management risk", "Reporting visibility risk", "Transformation delay risk"]
+}
