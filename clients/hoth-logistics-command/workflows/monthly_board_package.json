@@ -1,0 +1,22 @@
+{
+  "client_id": "hoth-logistics-command",
+  "client_name": "Hoth Logistics Command",
+  "cfo_persona": "CFO focused on emergency logistics cost containment, scenario planning, and forecast volatility management.",
+  "reporting_month": "2026-04",
+  "package_type": "Monthly Board Package",
+  "financials": {
+    "budget": 18000000,
+    "actuals": 22500000,
+    "forecast": 25000000,
+    "prior_month_actuals": 20300000
+  },
+  "kpis": {
+    "failed_delivery_rate": 0.29,
+    "equipment_uptime": 0.69,
+    "emergency_supply_spend": 4100000,
+    "weather_delay_rate": 0.37
+  },
+  "cost_drivers": ["Emergency supply runs", "Weather-related equipment loss", "Limited supply windows", "Cold-weather maintenance"],
+  "leadership_notes": ["Forecast volatility remains high.", "Emergency supply spending is above plan.", "Leadership wants contingency planning tied to cost controls."],
+  "risks": ["Cash pressure risk", "Emergency readiness risk", "Forecast volatility risk"]
+}
