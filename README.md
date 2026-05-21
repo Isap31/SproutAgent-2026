@@ -4,15 +4,17 @@ SproutAgent is a mock CFO and FP&A execution-agent prototype for a fictional con
 
 The project uses fictional planetary client companies to safely simulate real-world finance transformation, reporting automation, operational risk, variance analysis, and executive decision-support workflows.
 
-This is not a true autonomous agent. Phase 1 is intentionally designed as a controlled **Execution Agent**: one orchestrator, reusable deterministic finance skills, standardized outputs, and human review.
+SproutAgent is not designed as a fully autonomous agent. It is a controlled execution assistant: it runs reusable finance skills, calculates metrics deterministically, generates draft narratives with AI, and routes outputs to human review.
 
-## Project Purpose
+## Why This Project Exists
 
-SproutAgent is being built to explore how AI can help consulting and finance teams reduce repetitive reporting work while keeping humans in control.
+Finance teams often spend significant time assembling recurring reports, explaining variances, preparing leadership updates, and translating financial data into executive-ready narratives.
 
-The prototype focuses on CFO and FP&A use cases such as:
+SproutAgent explores how AI can reduce that manual reporting burden while keeping finance professionals and consultants in control of the final output.
 
-- Monthly board packages
+The prototype focuses on CFO and FP&A needs such as:
+
+- Monthly board reporting
 - Budget vs. actual variance analysis
 - Forecast commentary
 - Cost driver analysis
@@ -21,11 +23,11 @@ The prototype focuses on CFO and FP&A use cases such as:
 - Executive finance narratives
 - Human-reviewed reporting outputs
 
-## Core Concept
+## Core Operating Model
 
-Orbital Horizons Consulting treats fictional planets as client companies. Each client has finance, operational, risk, and transformation problems.
+Orbital Horizons Consulting treats fictional planets as client companies. Each mock client has finance, operational, risk, and transformation challenges.
 
-SproutAgent uses mock data to simulate a real consulting workflow:
+SproutAgent follows a controlled finance workflow:
 
 ```text
 Client Data Sources
@@ -43,24 +45,68 @@ Deck / PDF / Markdown Output Skill
 Human Review
 ```
 
-## Phase 1: Execution Agent
+The most important design rule is:
 
-Phase 1 is focused on building a practical execution workflow, not a fully autonomous AI agent.
+```text
+Code calculates.
+AI narrates.
+Humans approve.
+```
 
-The system should:
+This keeps the workflow practical, auditable, and finance-friendly.
 
-1. Pull structured mock finance data
-2. Validate required fields
-3. Calculate finance and KPI metrics deterministically
-4. Use Gemini for narrative generation
-5. Produce standardized reporting outputs
-6. Route outputs to human review
+## Most Important Product Factors
 
-This creates most of the practical value while keeping the workflow understandable, auditable, and safe.
+### 1. Deterministic Finance Logic
 
-## V1 Hero Skill: Monthly Board Package
+Financial calculations should be handled by code, not guessed by the AI model.
 
-The first reusable finance skill is the **Monthly Board Package**.
+Examples:
+
+- Variance amount
+- Variance percentage
+- Forecast gap
+- Month-over-month change
+- KPI movement
+- Cost driver summaries
+
+### 2. AI-Assisted Narrative Generation
+
+Gemini is used to draft executive-ready commentary after the numbers are calculated.
+
+Example outputs:
+
+- CFO summaries
+- Variance explanations
+- Forecast commentary
+- Risk narratives
+- Recommended actions
+- Decision points
+
+### 3. Standardized Outputs
+
+SproutAgent should produce consistent report structures so finance teams do not rebuild the same deliverables from scratch every month.
+
+### 4. Human Review
+
+Every output is treated as a draft. A consultant, CFO, or FP&A professional must review the final narrative before it is used.
+
+### 5. Reusable Finance Skills
+
+SproutAgent is built around reusable skills instead of one vague chatbot experience.
+
+Each skill should define:
+
+- Required inputs
+- Validation rules
+- Calculated metrics
+- AI narrative tasks
+- Final output format
+- Human review checklist
+
+## Current Hero Workflow: Monthly Board Package
+
+The first major workflow is the **Monthly Board Package**.
 
 ### Inputs
 
@@ -142,63 +188,19 @@ SproutAgent-2026/
 │   ├── __init__.py
 │   ├── gemini_service.py
 │   ├── intake.py
+│   ├── main.py
+│   ├── orchestrator.py
 │   ├── prompt_builder.py
 │   ├── report_generator.py
 │   └── skills/
 │       ├── __init__.py
 │       ├── data_pull.py
+│       ├── metric_calculation.py
+│       ├── narrative_generation.py
+│       ├── output_generation.py
 │       └── validation.py
 ├── .env.example
 └── README.md
-```
-
-## Current Build Status
-
-Completed so far:
-
-- Project README updated for the consulting prototype
-- Mock planetary client data added
-- Mock project data added
-- Risk taxonomy added
-- CFO briefing prompt added
-- General consulting, risk, and timeline prompts added
-- Architecture and roadmap documentation added
-- Gemini service scaffold added
-- Prompt builder added
-- Report generator added
-- Monthly board package mock data added
-- Skills package started
-- Data pull skill added
-- Validation skill added
-
-Still needed:
-
-- Metric calculation skill
-- Narrative generation skill
-- Output generation skill
-- Orchestrator
-- Main runner script
-- Requirements file
-- First generated sample report
-
-## Planned Architecture
-
-```text
-User selects skill
-↓
-SproutAgent Orchestrator
-↓
-Data Pull Skill
-↓
-Validation Skill
-↓
-Metric Calculation Skill
-↓
-Narrative Generation Skill using Gemini
-↓
-Output Generation Skill
-↓
-Human Review
 ```
 
 ## Gemini and Future Model Flexibility
@@ -209,18 +211,19 @@ Future versions may add a model-provider layer so SproutAgent can support other 
 
 The long-term goal is not to tie the product to one model. The goal is to build reusable finance workflows where the AI model is one interchangeable part of the system.
 
-## Quick Start
+## Local Setup Notes
 
-This project is still under construction.
+Create a local `.env` file using `.env.example` and add your Gemini API key there.
 
-Eventually, the local workflow will be:
+Do not commit `.env` to GitHub.
+
+Example:
 
 ```bash
-pip install -r requirements.txt
-python src/main.py
+GEMINI_API_KEY=your_real_key_here
+GEMINI_MODEL=gemini-1.5-flash
+REPORT_OUTPUT_DIR=reports
 ```
-
-For now, the repo contains the planning docs, mock data, prompt templates, and early execution-agent modules.
 
 ## Human Review Principle
 
