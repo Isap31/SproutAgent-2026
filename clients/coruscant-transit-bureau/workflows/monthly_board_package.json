@@ -1,0 +1,22 @@
+{
+  "client_id": "coruscant-transit-bureau",
+  "client_name": "Coruscant Transit Bureau",
+  "cfo_persona": "CFO focused on infrastructure budget governance, congestion-related cost pressure, and capital planning discipline.",
+  "reporting_month": "2026-04",
+  "package_type": "Monthly Board Package",
+  "financials": {
+    "budget": 50000000,
+    "actuals": 59000000,
+    "forecast": 65000000,
+    "prior_month_actuals": 54500000
+  },
+  "kpis": {
+    "congestion_incident_rate": 0.33,
+    "route_reliability_score": 0.71,
+    "energy_overrun_rate": 0.16,
+    "emergency_reroute_spend": 6200000
+  },
+  "cost_drivers": ["Energy grid strain", "Emergency rerouting", "Legacy routing systems", "District coordination delays"],
+  "leadership_notes": ["Transit delays are creating pressure on operating costs.", "Energy usage is above plan.", "Leadership wants better visibility into district-level variance."],
+  "risks": ["Capital overrun risk", "Public service reliability risk", "Forecast accuracy risk"]
+}
