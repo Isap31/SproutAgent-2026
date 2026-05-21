@@ -23,9 +23,9 @@ def load_json_file(filename: str) -> dict[str, Any] | list[dict[str, Any]]:
     return load_json_path(DATA_DIR / filename)
 
 
-def load_client_workflow_file(client_folder: str, workflow_file: str) -> dict[str, Any]:
-    """Load workflow data from a specific client folder."""
-    file_path = CLIENTS_DIR / client_folder / workflow_file
+def load_client_workflow_file(client_folder: str, workflow_name: str) -> dict[str, Any]:
+    """Load workflow data from clients/<client>/workflows/<workflow>.json."""
+    file_path = CLIENTS_DIR / client_folder / "workflows" / f"{workflow_name}.json"
     data = load_json_path(file_path)
     if not isinstance(data, dict):
         raise ValueError(f"{file_path} must contain a single JSON object.")
@@ -46,13 +46,13 @@ def load_monthly_board_package(client_id: str | None = None) -> dict[str, Any]:
     """Load one mock Monthly Board Package record.
 
     Priority order:
-    1. SPROUT_CLIENT_FOLDER from clients/<folder>/monthly_board_package.json
+    1. SPROUT_CLIENT_FOLDER from clients/<folder>/workflows/monthly_board_package.json
     2. client_id argument or SPROUT_CLIENT_ID from shared data/monthly_board_package.json
     3. first package in shared data file
     """
     client_folder = os.getenv("SPROUT_CLIENT_FOLDER")
     if client_folder:
-        return load_client_workflow_file(client_folder, "monthly_board_package.json")
+        return load_client_workflow_file(client_folder, "monthly_board_package")
 
     packages = load_monthly_board_packages()
     selected_client_id = client_id or os.getenv("SPROUT_CLIENT_ID")
