@@ -1,0 +1,22 @@
+{
+  "client_id": "endor-eco-development-authority",
+  "client_name": "Endor Eco-Development Authority",
+  "cfo_persona": "CFO focused on balancing sustainability investment, controlled infrastructure spend, and stakeholder reporting.",
+  "reporting_month": "2026-04",
+  "package_type": "Monthly Board Package",
+  "financials": {
+    "budget": 12000000,
+    "actuals": 12600000,
+    "forecast": 13200000,
+    "prior_month_actuals": 12100000
+  },
+  "kpis": {
+    "environmental_review_delay_rate": 0.11,
+    "sustainability_score": 0.78,
+    "community_issue_count": 8,
+    "construction_change_cost": 950000
+  },
+  "cost_drivers": ["Environmental review delays", "Phased construction changes", "Community engagement activities", "Sustainability monitoring"],
+  "leadership_notes": ["Spend is slightly above budget but within manageable range.", "Stakeholder reporting needs to improve.", "Leadership wants cost controls that do not weaken sustainability goals."],
+  "risks": ["Stakeholder confidence risk", "Sustainability reporting risk", "Schedule delay risk"]
+}
