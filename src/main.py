@@ -46,13 +46,18 @@ def main() -> None:
     print(f"AI mode: {'Offline fallback' if offline_mode else 'Gemini live with fallback'}")
     print(f"Configured model: {model_name}")
 
-    if selected_client_folder:
-        print(f"Selected client folder: {selected_client_folder}")
-    else:
-        print("No SPROUT_CLIENT_FOLDER selected. Showing available clients:")
+    if not selected_client_folder:
+        print("\nNo SPROUT_CLIENT_FOLDER selected. Choose one available client folder:")
         print(format_client_directory())
-        print("\nFalling back to shared data default for this run.")
+        print("\nExample command:")
+        print(
+            "SPROUT_CLIENT_FOLDER=coruscant-transit-bureau "
+            "SPROUT_OFFLINE_MODE=true python3 -m src.main"
+        )
+        print("\nAgent stopped safely. No report was generated.")
+        return
 
+    print(f"Selected client folder: {selected_client_folder}")
     print("Running agent...\n")
 
     agent = SproutAgent()
