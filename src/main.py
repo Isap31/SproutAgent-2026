@@ -33,6 +33,17 @@ def print_metric_summary(metrics: dict) -> None:
     )
 
 
+def print_next_steps(run_summary: dict) -> None:
+    """Print helpful next-step commands after a successful run."""
+    output_path = Path(str(run_summary["output_path"]))
+    report_folder = output_path.parent
+
+    print("\nNext Steps")
+    print("----------")
+    print(f"Open this client's report folder: open {report_folder}")
+    print("Review the Markdown report and JSON run log before treating the output as complete.")
+
+
 def main() -> None:
     """Run SproutAgent Phase 1 demo workflow."""
     load_local_env()
@@ -65,6 +76,7 @@ def main() -> None:
 
     print(format_run_summary(run_summary))
     print_metric_summary(run_summary["calculated_metrics"])
+    print_next_steps(run_summary)
     print("\nReminder: This output is a draft for human review.")
 
 
