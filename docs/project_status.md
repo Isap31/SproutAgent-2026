@@ -4,11 +4,25 @@ This file tracks what has been completed, what is currently working, what still 
 
 ## Project Direction
 
-SproutAgent is a mock CFO and FP&A execution-agent prototype for a fictional consulting firm called Orbital Horizons Consulting.
+SproutAgent is a mock internal finance execution-agent prototype for the fictional consulting firm **Orbital Horizons Consulting**.
 
-The prototype uses fictional planetary client companies to safely simulate real-world finance transformation, reporting automation, operational risk, variance analysis, and executive decision-support workflows.
+The prototype uses fictional planetary client companies to safely simulate real-world CFO and FP&A consulting workflows, especially finance reporting automation, variance analysis, forecast commentary, finance data support, and executive reporting.
 
-The current goal is to harden V1 before adding additional skills or integrations.
+The project is intentionally focused on one company-specific internal consulting workflow rather than a broad public SaaS product.
+
+## Core Positioning
+
+SproutAgent is designed as a controlled execution agent for CFO and FP&A reporting work.
+
+It should help a consulting team turn structured client finance data into draft reporting outputs while preserving validation, traceability, and human review.
+
+Core principle:
+
+```text
+Code calculates.
+AI narrates.
+Humans approve.
+```
 
 ## Current V1 Workflow
 
@@ -34,11 +48,55 @@ Run log output
 Human review
 ```
 
+## Service Focus
+
+SproutAgent is aligned to two mock service lines for Orbital Horizons Consulting.
+
+### 1. Finance Reporting Operations
+
+Focus areas:
+
+- Monthly board package preparation
+- Budget vs. actual reporting
+- Forecast commentary
+- Variance analysis
+- Close reporting support
+- Executive finance summaries
+- Recurring management reporting
+- Draft report, PDF, or deck-style outputs
+
+### 2. Finance Data & Decision Support
+
+Focus areas:
+
+- KPI summaries
+- Cost driver analysis
+- Forecast risk review
+- Trend summaries
+- Operational finance insights
+- Decision-ready executive reporting
+- Risk indicators for leadership review
+
 ## Current Hero Workflow
 
 **Monthly Board Package**
 
 The current V1 workflow generates a draft CFO/FP&A monthly board package using structured mock finance data.
+
+Outputs include:
+
+- Executive summary
+- Budget vs. actual analysis
+- Forecast outlook
+- KPI summary
+- Cost driver explanation
+- Risk summary
+- Recommended actions
+- CFO decision point
+- Human review notes
+- JSON run log for traceability
+
+## Current Mock CFO Clients
 
 Current mock CFO clients:
 
@@ -50,7 +108,7 @@ Current mock CFO clients:
 
 ## Current Client Folder Structure
 
-Client work is now organized under a single top-level `clients/` folder.
+Client work is organized under one top-level `clients/` folder.
 
 Expected structure:
 
@@ -79,16 +137,18 @@ clients/
 - `.env.example` added
 - `.gitignore` added
 - `.env` confirmed ignored by Git
-- Local Gemini API key setup tested
-- Generated reports folder used locally
 - Generated reports are ignored by Git
+- Run logs are ignored by Git
+- Local reference notes are ignored where needed
+- GitHub project status tracking added
 
 ### Mock Consulting Firm Setup
 
 - Mock firm defined as Orbital Horizons Consulting
 - Fictional planets are used as mock client companies
-- CFO and FP&A teams are the target clientele
-- The project focus was narrowed from general operations consulting to finance execution workflows
+- CFO and FP&A teams are the target users
+- Project focus narrowed from broad operations consulting to finance execution workflows
+- Services reframed around Finance Reporting Operations and Finance Data & Decision Support
 
 ### Mock Data Added
 
@@ -126,6 +186,8 @@ clients/
 - `docs/roadmap.md`
 - `docs/architecture.md`
 - `docs/project_status.md`
+- `docs/v1_demo_checklist.md`
+- `docs/service_focus.md`
 - `AGENTS.md`
 
 ### Python Modules Added
@@ -137,6 +199,7 @@ clients/
 - `src/report_generator.py`
 - `src/orchestrator.py`
 - `src/agent.py`
+- `src/client_registry.py`
 - `src/main.py`
 
 ### Skills Package Added
@@ -161,6 +224,20 @@ clients/
 - Agent marks human review as required
 - Agent saves a JSON run log for traceability
 
+### Client Discovery Added
+
+- `src/client_registry.py` lists available client folders
+- If no `SPROUT_CLIENT_FOLDER` is selected, SproutAgent shows available clients and stops safely
+- The previous confusing shared-data fallback behavior has been removed from the normal run path
+- SproutAgent now expects a client folder to be selected before generating a report
+
+### Output Behavior Completed
+
+- Markdown reports save under the selected client's `reports/monthly_board_package/` folder
+- JSON run logs save under the selected client's `reports/monthly_board_package/run_logs/` folder
+- Terminal output now prints the selected client, workflow, AI mode, report output path, run log path, execution steps, metric summary, and human review reminder
+- Terminal output now gives a helpful next-step command to open the selected client's report folder
+
 ### Working Local Capabilities
 
 - Local terminal workflow runs
@@ -170,11 +247,10 @@ clients/
 - Required data fields validate successfully
 - Budget, actuals, variance, forecast, and forecast gap metrics calculate successfully
 - Markdown report generates successfully
-- Report saves under the selected client's `reports/monthly_board_package/` folder
-- Run log saves under the selected client's `reports/monthly_board_package/run_logs/` folder
+- JSON run log generates successfully
 - Human review header appears in report output
 - Offline fallback mode works
-- Terminal output now shows workflow summary, execution steps, output path, run log path, and key metrics
+- Generated reports and run logs remain local outputs
 
 ### Gemini Work Completed
 
@@ -187,6 +263,44 @@ clients/
 - Live Gemini call now reaches Google API
 - Current Gemini blocker is quota exhaustion, not project code failure
 
+## Source Data Direction
+
+Current V1 source data is mock JSON under client folders.
+
+Future source data direction:
+
+```text
+Mock JSON data
+↓
+CSV / Excel exports
+↓
+NetSuite or QuickBooks exports
+↓
+Approved API connectors
+```
+
+SproutAgent should not replace NetSuite or QuickBooks. Those systems would remain the source of record. SproutAgent would act as a reporting execution layer after approved data is exported or pulled.
+
+## Real Demo Growth Options
+
+The project should grow in this order after V1 is stable:
+
+### Option 2: Streamlit or Local Demo Interface
+
+Create a simple local interface where a user can select a client, choose a workflow, run SproutAgent, and open the generated report.
+
+### Option 3: Excel / CSV Intake
+
+Add a `source_exports/` folder to each client and allow SproutAgent to convert CSV or Excel exports into workflow-ready source data.
+
+### Option 4: Internal Company Workflow Interface
+
+Build a more polished internal workflow interface for consultants to run approved workflows without using terminal commands.
+
+### Option 5: Model Provider Layer
+
+Add a provider layer so SproutAgent can support Gemini now and Claude later without rewriting the workflow logic.
+
 ## Current Known Issues
 
 - Live Gemini calls may fail because the current Gemini quota is exhausted
@@ -197,6 +311,12 @@ clients/
 - Generated reports and run logs are local outputs and should not be committed as project source files
 
 ## Current Recommended Commands
+
+Run discovery/safe-stop mode:
+
+```bash
+SPROUT_OFFLINE_MODE=true python3 -m src.main
+```
 
 Run the stable local development workflow for Coruscant:
 
@@ -239,6 +359,7 @@ git status
 - Do not overbuild before V1 is stable
 - Generated reports should not be committed
 - API keys should never be committed
+- SproutAgent is a controlled internal workflow prototype, not a broad autonomous agent
 
 ## Future Ideas Parking Lot
 
@@ -246,23 +367,38 @@ These ideas should remain parked until V1 is clean and stable:
 
 - Close Reporting skill
 - SaaS KPI Review skill
-- Excel or CSV input
 - PowerPoint output
 - Claude provider support
 - Model comparison mode
 - Excel add-in
 - Planning system integration
 - AI commentary inside finance workflows
+- NetSuite / QuickBooks live API integrations
 
 ## Next Best Steps
 
-1. Confirm `requirements.txt` uses the correct Gemini SDK package
-2. Confirm all client folders follow the same structure
-3. Keep Monthly Board Package workflow stable
-4. Confirm report header and source-data context look clean
-5. Confirm run logs should remain local outputs and not source-controlled artifacts
-6. Avoid adding Skill 002 until V1 is polished
+1. Pull latest GitHub updates locally
+2. Test the new terminal next-step output
+3. Test every client folder with offline mode
+4. Confirm all client runs save reports and run logs correctly
+5. Polish the Monthly Board Package report quality
+6. Update documentation after each meaningful milestone
+7. Then consider CSV/Excel intake as the next bridge toward real data
+
+## V1 Definition of Done
+
+V1 is demo-ready when:
+
+1. A selected client folder can be run from terminal.
+2. The workflow completes without manual code edits.
+3. The report is saved under the selected client's report folder.
+4. The run log is saved under the selected client's report folder.
+5. The terminal clearly explains what happened.
+6. The terminal gives the correct command to open the selected client's report folder.
+7. The report is clearly marked as a draft for human review.
+8. Generated outputs are not committed to GitHub.
+9. The project can be explained in under three minutes.
 
 ## Last Updated
 
-2026-05-21
+2026-05-23
