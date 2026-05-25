@@ -1,0 +1,5 @@
+account,entity,scenario,period,budget,actuals,forecast,prior_month_actuals,kpi_name,kpi_value,cost_driver,risk_indicator,leadership_note
+Transit Operations,Central District,Working Forecast,2026-04,50000000,59000000,65000000,54500000,route_reliability_score,0.71,Emergency rerouting,Forecast accuracy risk,Leadership wants better visibility into district-level variance.
+Energy Usage,Central District,Working Forecast,2026-04,12000000,13920000,15000000,12800000,energy_overrun_rate,0.16,Energy grid strain,Capital overrun risk,Energy usage is above plan.
+Routing Systems,Central District,Working Forecast,2026-04,8000000,9200000,10100000,8600000,congestion_incident_rate,0.33,Legacy routing systems,Public service reliability risk,Transit delays are creating pressure on operating costs.
+Emergency Reroutes,Central District,Working Forecast,2026-04,4000000,6200000,7000000,5400000,emergency_reroute_spend,6200000,Emergency rerouting,Forecast accuracy risk,Emergency rerouting remains above planned spend.
