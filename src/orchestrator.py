@@ -1,4 +1,3 @@
-from pathlib import Path
 from typing import Any
 
 from src.skills.data_pull import load_monthly_board_package
@@ -16,9 +15,18 @@ class SproutAgentOrchestrator:
     then AI narrative generation, then human-review-ready output.
     """
 
-    def run_monthly_board_package(self) -> dict[str, Any]:
-        """Run the Monthly Board Package skill end-to-end."""
-        package_data = load_monthly_board_package()
+    def run_monthly_board_package(
+        self,
+        package_data: dict[str, Any] | None = None,
+    ) -> dict[str, Any]:
+        """Run the Monthly Board Package skill end-to-end.
+
+        If package_data is provided, the workflow runs from that in-memory data.
+        Otherwise, it loads the selected client's workflow JSON from disk.
+        """
+        if package_data is None:
+            package_data = load_monthly_board_package()
+
         validate_monthly_board_package(package_data)
         calculated_metrics = calculate_monthly_board_metrics(package_data)
         narrative = generate_monthly_board_narrative(package_data, calculated_metrics)
