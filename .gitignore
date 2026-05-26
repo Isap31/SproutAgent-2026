@@ -8,3 +8,4 @@ reports/*.md
 clients/*/reports/**/*.md
 clients/*/reports/**/*.json
 runs/*.json
+SproutAgent_Project_Wrap_Up.md
