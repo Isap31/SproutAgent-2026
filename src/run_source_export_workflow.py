@@ -1,4 +1,3 @@
-import json
 import os
 import sys
 from pathlib import Path
@@ -6,7 +5,6 @@ from pathlib import Path
 from src.agent import SproutAgent, format_run_summary
 from src.client_registry import load_client_profile
 from src.main import load_local_env, print_metric_summary
-from src.map_source_export import get_workflow_output_path
 from src.skills.source_export_validation import (
     format_validation_result,
     validate_epm_variance_export,
@@ -23,9 +21,9 @@ DEFAULT_EXPORT_PATH = Path(
 def main() -> None:
     """Run the full source export workflow for one client.
 
-    This command validates an Oracle EPM-style CSV export, maps it into the
-    Monthly Board Package workflow JSON, writes the workflow file, then runs
-    SproutAgent from that refreshed workflow data.
+    This command validates an Oracle EPM-style CSV export, maps it into
+    Monthly Board Package workflow data in memory, then runs SproutAgent
+    without rewriting the tracked workflow JSON file.
     """
     load_local_env()
 
@@ -39,6 +37,7 @@ def main() -> None:
     print("----------------------------------")
     print(f"Client folder: {client_folder}")
     print(f"Source export: {export_path}")
+    print("Mode: In-memory mapped workflow data")
     print("")
 
     validation_result = validate_epm_variance_export(export_path)
@@ -46,21 +45,20 @@ def main() -> None:
     if validation_result["status"] != "passed":
         raise SystemExit(1)
 
-    print("\nMapping source export into Monthly Board Package workflow data...")
+    print("\nMapping source export into Monthly Board Package workflow data in memory...")
     client_profile = load_client_profile(client_folder)
     workflow_data = map_epm_variance_export_to_monthly_board_package(
         file_path=export_path,
         client_profile=client_profile,
     )
+    print("Mapped workflow data prepared. No tracked workflow JSON file was rewritten.")
 
-    workflow_output_path = get_workflow_output_path(client_folder)
-    workflow_output_path.parent.mkdir(parents=True, exist_ok=True)
-    workflow_output_path.write_text(json.dumps(workflow_data, indent=2), encoding="utf-8")
-    print(f"Workflow file updated: {workflow_output_path}")
-
-    print("\nRunning SproutAgent from refreshed workflow data...\n")
+    print("\nRunning SproutAgent from mapped source export data...\n")
     agent = SproutAgent()
-    run_summary = agent.run_monthly_board_package()
+    run_summary = agent.run_monthly_board_package(
+        package_data=workflow_data,
+        source_detail=f"In-memory source export mapping: {export_path}",
+    )
 
     print(format_run_summary(run_summary))
     print_metric_summary(run_summary["calculated_metrics"])
@@ -70,6 +68,7 @@ def main() -> None:
     print("----------")
     print(f"Open this client's report folder: open {report_folder}")
     print("Review the Markdown report and JSON run log before treating the output as complete.")
+    print("Run `git status` to confirm the source-export run did not modify tracked workflow files.")
     print("\nReminder: This output is a draft for human review.")
 
 
