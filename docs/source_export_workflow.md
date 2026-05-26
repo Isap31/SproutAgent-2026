@@ -4,25 +4,25 @@ This guide explains the current Oracle EPM-style source export workflow for Spro
 
 ## Purpose
 
-SproutAgent V1 still runs from client workflow JSON files. The source export workflow is the bridge toward future Oracle EPM, CSV, or Excel intake.
+SproutAgent V1 can run from prepared client workflow JSON, but the source export workflow is the bridge toward future Oracle EPM, CSV, or Excel intake.
 
-The current source export path is:
+The preferred source export path is now:
 
 ```text
 Oracle EPM-style CSV export
 ↓
 Validate export columns and numeric fields
 ↓
-Map export into Monthly Board Package workflow data
+Map export into Monthly Board Package workflow data in memory
 ↓
-Write mapped data to workflows/monthly_board_package.json
-↓
-Run SproutAgent
+Run SproutAgent from the mapped in-memory data
 ↓
 Generate report and run log
 ↓
 Human review
 ```
+
+This preferred path does **not** rewrite the tracked `workflows/monthly_board_package.json` file during normal demo runs.
 
 ## Current Sample Export
 
@@ -87,9 +87,36 @@ python3 -m src.map_source_export
 
 This prints the mapped Monthly Board Package JSON to the terminal without overwriting the client workflow file.
 
-## Write the Mapped Data to the Client Workflow
+## Run the Full Source-Export-to-Report Workflow
 
 Run:
+
+```bash
+python3 -m src.run_source_export_workflow
+```
+
+This command:
+
+```text
+validates the CSV export
+maps the export into workflow data in memory
+runs SproutAgent from the mapped data
+generates a Markdown report
+generates a JSON run log
+leaves tracked workflow JSON untouched
+```
+
+After the run, check:
+
+```bash
+git status
+```
+
+The normal source-export demo run should not mark `clients/coruscant-transit-bureau/workflows/monthly_board_package.json` as modified.
+
+## Optional: Write the Mapped Data to the Client Workflow
+
+Only use this when you intentionally want to refresh the tracked workflow JSON file:
 
 ```bash
 python3 -m src.map_source_export coruscant-transit-bureau clients/coruscant-transit-bureau/source_exports/sample_epm_variance_export.csv --write
@@ -101,9 +128,11 @@ This updates:
 clients/coruscant-transit-bureau/workflows/monthly_board_package.json
 ```
 
-## Run SproutAgent From the Updated Workflow
+This is useful for intentional baseline refreshes, but it is not the preferred normal demo path.
 
-After writing the mapped data, run:
+## Run SproutAgent From the Saved Workflow JSON
+
+If you intentionally wrote the mapped data to the workflow file, you can run:
 
 ```bash
 SPROUT_CLIENT_FOLDER=coruscant-transit-bureau SPROUT_OFFLINE_MODE=true python3 -m src.main
@@ -137,7 +166,7 @@ This workflow proves the next major bridge in SproutAgent:
 ```text
 Mock prepared workflow JSON
 ↓
-Export-driven workflow JSON
+Export-driven in-memory workflow data
 ↓
 Future CSV / Excel intake
 ↓
