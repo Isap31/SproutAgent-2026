@@ -28,8 +28,16 @@ class SproutAgent:
             }
         )
 
-    def run_monthly_board_package(self) -> dict[str, Any]:
-        """Run the Monthly Board Package workflow and return a run summary."""
+    def run_monthly_board_package(
+        self,
+        package_data: dict[str, Any] | None = None,
+        source_detail: str = "Client workflow JSON",
+    ) -> dict[str, Any]:
+        """Run the Monthly Board Package workflow and return a run summary.
+
+        If package_data is provided, the agent runs from in-memory workflow data.
+        This is useful for source-export runs that should not rewrite tracked JSON.
+        """
         started_at = datetime.now().isoformat(timespec="seconds")
         requested_client_folder = os.getenv("SPROUT_CLIENT_FOLDER", "shared-data-default")
         offline_mode = os.getenv("SPROUT_OFFLINE_MODE", "false").lower() == "true"
@@ -45,8 +53,13 @@ class SproutAgent:
             "completed",
             "Monthly Board Package",
         )
+        self.record_step(
+            "Workflow source prepared",
+            "completed",
+            source_detail,
+        )
 
-        result = self.orchestrator.run_monthly_board_package()
+        result = self.orchestrator.run_monthly_board_package(package_data=package_data)
 
         self.record_step(
             "Client workflow data loaded",
@@ -87,6 +100,7 @@ class SproutAgent:
             "client_name": result.get("client_name"),
             "reporting_month": result.get("reporting_month"),
             "client_folder": requested_client_folder,
+            "workflow_source": source_detail,
             "ai_mode": ai_mode,
             "status": "completed",
             "started_at": started_at,
@@ -122,6 +136,7 @@ def format_run_summary(run_summary: dict[str, Any]) -> str:
         f"Client: {run_summary.get('client_name')}",
         f"Client folder: {run_summary.get('client_folder')}",
         f"Workflow: {run_summary.get('workflow')}",
+        f"Workflow source: {run_summary.get('workflow_source')}",
         f"Reporting period: {run_summary.get('reporting_month')}",
         f"AI mode: {run_summary.get('ai_mode')}",
         f"Output: {output_path}",
