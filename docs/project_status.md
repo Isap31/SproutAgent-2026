@@ -29,7 +29,9 @@ Humans approve.
 ```text
 Client folder
 ↓
-Workflow source data
+Source export or workflow source data
+↓
+Source validation and mapping, when using exports
 ↓
 SproutAgent control layer
 ↓
@@ -100,11 +102,12 @@ Outputs include:
 
 Current mock CFO clients:
 
-- Tatooine Water Authority
 - Coruscant Transit Bureau
 - Naboo Civic Operations Council
 - Hoth Logistics Command
 - Endor Eco-Development Authority
+
+Tatooine Water Authority was used as an early test/default client and may be re-added later only if needed.
 
 ## Current Client Folder Structure
 
@@ -116,6 +119,8 @@ Expected structure:
 clients/
 ├── coruscant-transit-bureau/
 │   ├── client_profile.json
+│   ├── source_exports/
+│   │   └── sample_epm_variance_export.csv
 │   ├── workflows/
 │   │   └── monthly_board_package.json
 │   └── reports/
@@ -161,15 +166,20 @@ clients/
 ### Client Folder Structure Added
 
 - `clients/coruscant-transit-bureau/client_profile.json`
+- `clients/coruscant-transit-bureau/source_exports/README.md`
+- `clients/coruscant-transit-bureau/source_exports/sample_epm_variance_export.csv`
 - `clients/coruscant-transit-bureau/workflows/monthly_board_package.json`
 - `clients/coruscant-transit-bureau/reports/monthly_board_package/.gitkeep`
 - `clients/naboo-civic-operations-council/client_profile.json`
+- `clients/naboo-civic-operations-council/source_exports/README.md`
 - `clients/naboo-civic-operations-council/workflows/monthly_board_package.json`
 - `clients/naboo-civic-operations-council/reports/monthly_board_package/.gitkeep`
 - `clients/hoth-logistics-command/client_profile.json`
+- `clients/hoth-logistics-command/source_exports/README.md`
 - `clients/hoth-logistics-command/workflows/monthly_board_package.json`
 - `clients/hoth-logistics-command/reports/monthly_board_package/.gitkeep`
 - `clients/endor-eco-development-authority/client_profile.json`
+- `clients/endor-eco-development-authority/source_exports/README.md`
 - `clients/endor-eco-development-authority/workflows/monthly_board_package.json`
 - `clients/endor-eco-development-authority/reports/monthly_board_package/.gitkeep`
 
@@ -188,6 +198,8 @@ clients/
 - `docs/project_status.md`
 - `docs/v1_demo_checklist.md`
 - `docs/service_focus.md`
+- `docs/oracle_epm_integration_plan.md`
+- `docs/source_export_workflow.md`
 - `AGENTS.md`
 
 ### Python Modules Added
@@ -201,6 +213,10 @@ clients/
 - `src/agent.py`
 - `src/client_registry.py`
 - `src/main.py`
+- `src/run_all_clients.py`
+- `src/validate_source_export.py`
+- `src/map_source_export.py`
+- `src/run_source_export_workflow.py`
 
 ### Skills Package Added
 
@@ -211,10 +227,12 @@ clients/
 - `src/skills/narrative_generation.py`
 - `src/skills/output_generation.py`
 - `src/skills/run_logging.py`
+- `src/skills/source_export_validation.py`
+- `src/skills/source_mapping.py`
 
 ### Agent Control Layer Completed
 
-- `src/agent.py` now wraps the orchestrator in a controlled SproutAgent run layer
+- `src/agent.py` wraps the orchestrator in a controlled SproutAgent run layer
 - Agent run summary is printed in the terminal
 - Agent tracks selected client folder
 - Agent tracks selected workflow
@@ -235,15 +253,34 @@ clients/
 
 - Markdown reports save under the selected client's `reports/monthly_board_package/` folder
 - JSON run logs save under the selected client's `reports/monthly_board_package/run_logs/` folder
-- Terminal output now prints the selected client, workflow, AI mode, report output path, run log path, execution steps, metric summary, and human review reminder
-- Terminal output now gives a helpful next-step command to open the selected client's report folder
+- Terminal output prints the selected client, workflow, AI mode, report output path, run log path, execution steps, metric summary, and human review reminder
+- Terminal output gives a helpful next-step command to open the selected client's report folder
+
+### V1 Smoke Test Added
+
+- `src/run_all_clients.py` runs the Monthly Board Package workflow for every active client folder
+- Smoke test confirmed 4 active client workflows passed successfully
+- Smoke test validates that reports and run logs generate across all active mock clients
+
+### Source Export Workflow Added
+
+- Coruscant now includes a mock Oracle EPM-style source export: `sample_epm_variance_export.csv`
+- `src/skills/source_export_validation.py` validates required export columns and numeric fields
+- `src/validate_source_export.py` provides a CLI command to validate the export
+- `src/skills/source_mapping.py` maps an Oracle EPM-style CSV export into Monthly Board Package workflow data
+- `src/map_source_export.py` previews mapped workflow JSON and can write it to `workflows/monthly_board_package.json` using `--write`
+- `src/run_source_export_workflow.py` runs the full source-export-to-report flow in one command
+- `docs/source_export_workflow.md` documents the validation, mapping, write, and report-generation flow
 
 ### Working Local Capabilities
 
 - Local terminal workflow runs
 - Monthly Board Package workflow runs
 - Client-folder data loading works
-- Example tested successfully with `coruscant-transit-bureau`
+- Source export validation works
+- Source export mapping works
+- Source export can refresh the Coruscant workflow JSON
+- Full source-export-to-report command exists
 - Required data fields validate successfully
 - Budget, actuals, variance, forecast, and forecast gap metrics calculate successfully
 - Markdown report generates successfully
@@ -265,12 +302,17 @@ clients/
 
 ## Source Data Direction
 
-Current V1 source data is mock JSON under client folders.
+Current V1 source data can come from:
+
+1. Prepared client workflow JSON
+2. Mock Oracle EPM-style CSV export mapped into workflow JSON
 
 Future source data direction:
 
 ```text
 Mock JSON data
+↓
+Oracle EPM-style CSV export
 ↓
 CSV / Excel exports
 ↓
@@ -279,7 +321,29 @@ NetSuite or QuickBooks exports
 Approved API connectors
 ```
 
-SproutAgent should not replace NetSuite or QuickBooks. Those systems would remain the source of record. SproutAgent would act as a reporting execution layer after approved data is exported or pulled.
+SproutAgent should not replace Oracle EPM, NetSuite, or QuickBooks. Those systems would remain the source of record. SproutAgent would act as a reporting execution layer after approved data is exported or pulled.
+
+## Oracle EPM Direction
+
+SproutAgent is now being shaped toward an Oracle EPM-style future demo.
+
+Current Oracle EPM-aware path:
+
+```text
+Oracle EPM-style export
+↓
+Validate export
+↓
+Map export into Monthly Board Package workflow data
+↓
+Run SproutAgent
+↓
+Generate report and run log
+↓
+Human review
+```
+
+This keeps V1 grounded while preparing for future Oracle EPM access, REST APIs, AI Agent Studio concepts, or embedded workflow patterns.
 
 ## Real Demo Growth Options
 
@@ -291,7 +355,7 @@ Create a simple local interface where a user can select a client, choose a workf
 
 ### Option 3: Excel / CSV Intake
 
-Add a `source_exports/` folder to each client and allow SproutAgent to convert CSV or Excel exports into workflow-ready source data.
+Expand the `source_exports/` approach so SproutAgent can convert more CSV or Excel exports into workflow-ready source data.
 
 ### Option 4: Internal Company Workflow Interface
 
@@ -309,6 +373,7 @@ Add a provider layer so SproutAgent can support Gemini now and Claude later with
 - Some GitHub write actions have occasionally been blocked and may require manual updates
 - V1 should be hardened before adding Skill 002
 - Generated reports and run logs are local outputs and should not be committed as project source files
+- The source export mapping currently exists for a Coruscant sample CSV only
 
 ## Current Recommended Commands
 
@@ -324,10 +389,34 @@ Run the stable local development workflow for Coruscant:
 SPROUT_CLIENT_FOLDER=coruscant-transit-bureau SPROUT_OFFLINE_MODE=true python3 -m src.main
 ```
 
-Run another client folder:
+Run every active client folder as a V1 smoke test:
 
 ```bash
-SPROUT_CLIENT_FOLDER=hoth-logistics-command SPROUT_OFFLINE_MODE=true python3 -m src.main
+python3 -m src.run_all_clients
+```
+
+Validate the default sample source export:
+
+```bash
+python3 -m src.validate_source_export
+```
+
+Preview mapped Monthly Board Package data from the source export:
+
+```bash
+python3 -m src.map_source_export
+```
+
+Write mapped source export data into the Coruscant workflow file:
+
+```bash
+python3 -m src.map_source_export coruscant-transit-bureau clients/coruscant-transit-bureau/source_exports/sample_epm_variance_export.csv --write
+```
+
+Run the full source-export-to-report workflow:
+
+```bash
+python3 -m src.run_source_export_workflow
 ```
 
 Run live Gemini mode when quota is available:
@@ -336,7 +425,7 @@ Run live Gemini mode when quota is available:
 SPROUT_CLIENT_FOLDER=coruscant-transit-bureau python3 -m src.main
 ```
 
-Open generated reports for a selected client:
+Open generated reports for Coruscant:
 
 ```bash
 open clients/coruscant-transit-bureau/reports/monthly_board_package
@@ -360,6 +449,7 @@ git status
 - Generated reports should not be committed
 - API keys should never be committed
 - SproutAgent is a controlled internal workflow prototype, not a broad autonomous agent
+- Oracle EPM readiness should be built through exports and mapping before live APIs
 
 ## Future Ideas Parking Lot
 
@@ -373,17 +463,18 @@ These ideas should remain parked until V1 is clean and stable:
 - Excel add-in
 - Planning system integration
 - AI commentary inside finance workflows
+- Oracle EPM REST API integration
 - NetSuite / QuickBooks live API integrations
 
 ## Next Best Steps
 
 1. Pull latest GitHub updates locally
-2. Test the new terminal next-step output
-3. Test every client folder with offline mode
-4. Confirm all client runs save reports and run logs correctly
-5. Polish the Monthly Board Package report quality
-6. Update documentation after each meaningful milestone
-7. Then consider CSV/Excel intake as the next bridge toward real data
+2. Test `python3 -m src.run_source_export_workflow`
+3. Confirm the refreshed workflow file still runs through SproutAgent
+4. Confirm reports and run logs are generated in the correct Coruscant folder
+5. Confirm generated reports/run logs do not appear in `git status`
+6. Polish the Monthly Board Package report quality further if needed
+7. Then consider a small Streamlit/local demo interface after the export-driven flow is stable
 
 ## V1 Definition of Done
 
@@ -398,7 +489,8 @@ V1 is demo-ready when:
 7. The report is clearly marked as a draft for human review.
 8. Generated outputs are not committed to GitHub.
 9. The project can be explained in under three minutes.
+10. The Coruscant source export can be validated, mapped, and used to generate a report.
 
 ## Last Updated
 
-2026-05-23
+2026-05-25
