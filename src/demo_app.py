@@ -27,6 +27,15 @@ def get_source_exports(client_folder: str) -> list[Path]:
     return sorted(export_dir.glob("*.csv"))
 
 
+def get_client_display_name(client_folder: str) -> str:
+    """Return the friendly client name for a client folder."""
+    try:
+        profile = load_client_profile(client_folder)
+    except Exception:  # noqa: BLE001
+        return client_folder
+    return profile.get("client_name", client_folder)
+
+
 def open_report_folder(report_folder: Path) -> None:
     """Open a report folder in Finder on macOS."""
     subprocess.run(["open", str(report_folder)], check=False)
@@ -99,9 +108,17 @@ def main() -> None:
         st.error("No client folders found under clients/.")
         return
 
+    client_display_lookup = {
+        get_client_display_name(client_folder): client_folder for client_folder in clients
+    }
+    client_display_names = sorted(client_display_lookup.keys())
+
     with st.sidebar:
         st.header("Run Controls")
-        client_folder = st.selectbox("Client folder", clients)
+        selected_client_name = st.selectbox("Client", client_display_names)
+        client_folder = client_display_lookup[selected_client_name]
+        st.caption(f"Internal folder: `{client_folder}`")
+
         exports = get_source_exports(client_folder)
 
         if exports:
@@ -123,7 +140,8 @@ def main() -> None:
         st.markdown(f"**Client:** {profile.get('client_name', 'Unknown')}")
         st.markdown(f"**Industry:** {profile.get('industry', 'Unknown')}")
         st.markdown(f"**CFO Persona:** {profile.get('cfo_persona', 'CFO / FP&A leader')}")
-        st.markdown(f"**CFO Focus:** {profile.get('cfo_focus', 'No CFO focus provided.')}")
+        st.markdown(f"**Primary Finance Challenge:** {profile.get('primary_finance_challenge', 'No finance challenge provided.')}")
+        st.markdown(f"**Transformation Goal:** {profile.get('transformation_goal', 'No transformation goal provided.')}")
     except Exception as exc:  # noqa: BLE001
         st.warning(f"Could not load client profile: {exc}")
 
