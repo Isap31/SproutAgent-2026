@@ -1,6 +1,11 @@
 import os
 import subprocess
+import sys
 from pathlib import Path
+
+ROOT_DIR = Path(__file__).resolve().parents[1]
+if str(ROOT_DIR) not in sys.path:
+    sys.path.insert(0, str(ROOT_DIR))
 
 import streamlit as st
 
@@ -12,9 +17,6 @@ from src.skills.source_export_validation import (
     validate_epm_variance_export,
 )
 from src.skills.source_mapping import map_epm_variance_export_to_monthly_board_package
-
-
-ROOT_DIR = Path(__file__).resolve().parents[1]
 
 
 def get_source_exports(client_folder: str) -> list[Path]:
@@ -76,9 +78,21 @@ def main() -> None:
     )
 
     st.info(
-        "This is a local V1 demo interface. It uses mock data only and keeps all "
-        "outputs marked for human review."
+        "This local V1 demo uses mock data only. It demonstrates a controlled finance "
+        "execution workflow, not a production Oracle EPM integration."
     )
+
+    with st.expander("What this demo proves", expanded=True):
+        st.markdown(
+            """
+            - A finance-system-style export can be validated before use.
+            - Source data can be mapped into SproutAgent workflow data in memory.
+            - The agent calculates financial metrics deterministically.
+            - Draft commentary and reports are generated for human review.
+            - Run logs preserve traceability.
+            - Normal demo runs do not dirty Git or rewrite tracked workflow JSON.
+            """
+        )
 
     clients = list_client_folders()
     if not clients:
@@ -106,11 +120,10 @@ def main() -> None:
     st.subheader("Client Context")
     try:
         profile = load_client_profile(client_folder)
-        col1, col2, col3 = st.columns(3)
-        col1.metric("Client", profile.get("client_name", "Unknown"))
-        col2.metric("Industry", profile.get("industry", "Unknown"))
-        col3.metric("CFO Persona", profile.get("cfo_persona", "CFO / FP&A"))
-        st.write(profile.get("cfo_focus", "No CFO focus provided."))
+        st.markdown(f"**Client:** {profile.get('client_name', 'Unknown')}")
+        st.markdown(f"**Industry:** {profile.get('industry', 'Unknown')}")
+        st.markdown(f"**CFO Persona:** {profile.get('cfo_persona', 'CFO / FP&A leader')}")
+        st.markdown(f"**CFO Focus:** {profile.get('cfo_focus', 'No CFO focus provided.')}")
     except Exception as exc:  # noqa: BLE001
         st.warning(f"Could not load client profile: {exc}")
 
@@ -152,12 +165,13 @@ def main() -> None:
         c3.metric("Variance", f"{metrics['variance_percent']:.2f}%")
         c4.metric("Forecast Gap", f"{metrics['forecast_gap_percent']:.2f}%")
 
-        st.text(format_run_summary(run_summary))
+        with st.expander("View run summary", expanded=True):
+            st.text(format_run_summary(run_summary))
 
         report_path = Path(str(run_summary["output_path"]))
         report_folder = report_path.parent
-        st.write(f"Report path: `{report_path}`")
-        st.write(f"Run log path: `{run_summary['run_log_path']}`")
+        st.markdown(f"**Report path:** `{report_path}`")
+        st.markdown(f"**Run log path:** `{run_summary['run_log_path']}`")
 
         if st.button("Open report folder"):
             open_report_folder(report_folder)
